@@ -12,12 +12,12 @@ See GitHub's blog post — http://githubengineering.com/scientist/
 Installation
 --------------------------------------------------------------------------------
 
-TODO
+`go get github.com/lmas/labassistant/src`.
 
 Usage
 --------------------------------------------------------------------------------
 
-TODO
+For now, please see the `example.go` file for how to use the library.
 
 License
 --------------------------------------------------------------------------------
