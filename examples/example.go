@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lmas/labassistant/src"
+	"github.com/lmas/labassistant"
 )
 
 func main() {
