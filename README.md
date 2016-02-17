@@ -12,7 +12,7 @@ See GitHub's blog post — http://githubengineering.com/scientist/
 Installation
 --------------------------------------------------------------------------------
 
-`go get github.com/lmas/labassistant/src`.
+`go get github.com/lmas/labassistant`.
 
 Usage
 --------------------------------------------------------------------------------
