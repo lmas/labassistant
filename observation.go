@@ -18,6 +18,7 @@ type Observation struct {
 	can_panic bool
 }
 
+// Try to run the function for an observation, and if successful, set some stats.
 func (ob *Observation) run(f interface{}, args ...interface{}) []interface{} {
 	fv := reflect.ValueOf(f)
 	if len(ob.Name) == 0 {
@@ -56,7 +57,7 @@ func (ob *Observation) run(f interface{}, args ...interface{}) []interface{} {
 	return ob.Outputs
 }
 
-// Do the actual call to the function
+// Do the actual call to the function and make some measurements.
 func (ob *Observation) make_call(fv reflect.Value, inputs []reflect.Value) []reflect.Value {
 	if ob.can_panic {
 		defer func() {
