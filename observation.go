@@ -13,6 +13,7 @@ type Observation struct {
 	Outputs  []interface{}
 	Start    time.Time
 	Duration time.Duration
+	Mismatch bool
 
 	fun       interface{}
 	can_panic bool

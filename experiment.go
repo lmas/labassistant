@@ -55,5 +55,19 @@ func (ex *Experiment) Run(inputs ...interface{}) []interface{} {
 		ex.RunOrder = append(ex.RunOrder, ob.Name)
 	}
 
+	// Check for output mismatches now that we've run everything
+	for _, ob := range ex.Candidates {
+		if len(ob.Outputs) != len(ex.Control.Outputs) {
+			ob.Mismatch = true
+			continue
+		}
+		for i := range ob.Outputs {
+			if ob.Outputs[i] != ex.Control.Outputs[i] {
+				ob.Mismatch = true
+				continue
+			}
+		}
+	}
+
 	return ex.Control.Outputs
 }

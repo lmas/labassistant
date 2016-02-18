@@ -47,7 +47,7 @@ func Publish(ex *labassistant.Experiment) {
 			output = []interface{}{ob.Panic}
 		}
 
-		fmt.Printf("Candidate %v duration: %v \t output: %v\n", ob.Name, ob.Duration, output)
+		fmt.Printf("Candidate %v duration: %v \t mismatch: %v \t output: %v\n", ob.Name, ob.Duration, ob.Mismatch, output)
 	}
 
 	// And finally show the execution order.
