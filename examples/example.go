@@ -14,7 +14,7 @@ func main() {
 
 	// Add the control, the original function you want to refactor and
 	// measure against with your new code.
-	ex.AddControl(testcontrol, 1, 2)
+	ex.AddControl(testcontrol)
 
 	// Add a bunch of new candidates for replacing the original example function.
 	ex.AddCandidate(testcan1)
@@ -28,7 +28,7 @@ func main() {
 	// Fire up the engines and start running the control and the candidates
 	// in a random order. The library will take some measurements while this
 	// is running.
-	ex.Run()
+	ex.Run(1, 2)
 
 	// Example function for showing the final results of the run.
 	Publish(ex)
