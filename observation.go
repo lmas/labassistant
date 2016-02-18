@@ -22,22 +22,31 @@ func (ob *Observation) run(f interface{}, args ...interface{}) []interface{} {
 	fv := reflect.ValueOf(f)
 	fvtype := fv.Type()
 	if fvtype.Kind() != reflect.Func {
-		panic(fmt.Errorf("First argument is not a func"))
-	}
-
-	inputs := []reflect.Value{}
-	for i, a := range args {
-		tmp := reflect.ValueOf(a)
-		if tmp.Type() != fvtype.In(i) {
-			panic(fmt.Errorf("Invalid argument to function"))
-		}
-		inputs = append(inputs, tmp)
+		panic(fmt.Errorf("First argument is not a function"))
 	}
 
 	if len(ob.Name) == 0 {
 		if rf := runtime.FuncForPC(fv.Pointer()); rf != nil {
 			ob.Name = rf.Name()
 		}
+	}
+
+	if len(args) != fvtype.NumIn() {
+		panic(fmt.Errorf("Incorrect number of inputs to %v", ob.Name))
+	}
+
+	inputs := []reflect.Value{}
+	for i, a := range args {
+		tmp := reflect.ValueOf(a)
+		tmptype := tmp.Type()
+		in := fvtype.In(i)
+		if tmptype != in {
+			panic(fmt.Errorf("Invalid input (%v) to function (expected %v)",
+				tmptype.Kind(),
+				in.Kind(),
+			))
+		}
+		inputs = append(inputs, tmp)
 	}
 
 	ret := ob.make_call(fv, inputs)
