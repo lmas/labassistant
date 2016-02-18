@@ -19,8 +19,21 @@ Usage
 
 For now, please see the `example.go` file for how to use the library.
 
+Contribution
+--------------------------------------------------------------------------------
+
+Any and all contributions are welcome. Just make sure to run `go fmt` on any
+code in a new pull request.
+
 License
 --------------------------------------------------------------------------------
 
 MIT License, see the LICENSE file.
 
+TODO
+--------------------------------------------------------------------------------
+
+- Custom mismatch comparison.
+- Specify outputs to not store in an observation?
+- Tests.
+- Default publish functions?
