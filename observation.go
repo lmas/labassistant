@@ -20,17 +20,13 @@ type Observation struct {
 
 func (ob *Observation) run(f interface{}, args ...interface{}) []interface{} {
 	fv := reflect.ValueOf(f)
-	fvtype := fv.Type()
-	if fvtype.Kind() != reflect.Func {
-		panic(fmt.Errorf("First argument is not a function"))
-	}
-
 	if len(ob.Name) == 0 {
 		if rf := runtime.FuncForPC(fv.Pointer()); rf != nil {
 			ob.Name = rf.Name()
 		}
 	}
 
+	fvtype := fv.Type()
 	if len(args) != fvtype.NumIn() {
 		panic(fmt.Errorf("Incorrect number of inputs to %v", ob.Name))
 	}

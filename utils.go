@@ -2,6 +2,7 @@ package labassistant
 
 import (
 	"math/rand"
+	"reflect"
 	"time"
 )
 
@@ -14,4 +15,13 @@ func shuffle(slice []*Observation) {
 		slice[i], slice[j] = slice[j], slice[i]
 	}
 
+}
+
+// Check if a variable is a function.
+func is_func(f interface{}) bool {
+	ftype := reflect.ValueOf(f).Type().Kind()
+	if ftype != reflect.Func {
+		return false
+	}
+	return true
 }

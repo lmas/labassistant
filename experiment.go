@@ -1,5 +1,7 @@
 package labassistant
 
+import "fmt"
+
 type Experiment struct {
 	Name       string
 	Control    *Observation
@@ -18,11 +20,17 @@ func NewExperiment(name string) *Experiment {
 // There can only be one control for each experiment and it's required to be
 // set before the experiment can be run.
 func (ex *Experiment) AddControl(f interface{}) {
+	if !is_func(f) {
+		panic(fmt.Errorf("Control is not a function"))
+	}
 	ex.Control = &Observation{Name: "Control", can_panic: false, fun: f}
 }
 
 // Add a candidate function f. You can add as many as you like.
 func (ex *Experiment) AddCandidate(f interface{}) {
+	if !is_func(f) {
+		panic(fmt.Errorf("Candidate is not a function"))
+	}
 	ob := &Observation{can_panic: true, fun: f}
 	ex.Candidates = append(ex.Candidates, ob)
 }
