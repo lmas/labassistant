@@ -28,6 +28,9 @@ func main() {
 	// Set a custom comparison function.
 	// ex.SetCompare(custom_compare)
 
+	// Or if there's a need to ignore a certain output.
+	// ex.SetIgnore(custom_ignore)
+
 	// Fire up the engines and start running the control and the candidates
 	// in a random order. The library will take some measurements while this
 	// is running.
