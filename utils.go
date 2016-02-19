@@ -31,9 +31,12 @@ func is_func(f interface{}) bool {
 // against the control's output. It also ensures that the number of outputs of
 // the candidate is the same as the control's.
 func DefaultMismatchCompare(control, candidate []interface{}) bool {
+	// We will likely run into a "index out of range" panic if we don't make
+	// sure the len of outputs are equal.
 	if len(candidate) != len(control) {
 		return false
 	}
+
 	for i := range candidate {
 		if candidate[i] != control[i] {
 			return false
