@@ -10,11 +10,16 @@ type Experiment struct {
 	Inputs     []interface{}
 
 	mismatch_compare func([]interface{}, []interface{}) bool
+	mismatch_ignore  func([]interface{}, []interface{}) bool
 }
 
 // Create a new experiment to run and set a name for it.
 func NewExperiment(name string) *Experiment {
-	ex := &Experiment{Name: name, mismatch_compare: DefaultMismatchCompare}
+	ex := &Experiment{
+		Name:             name,
+		mismatch_compare: DefaultMismatchCompare,
+		mismatch_ignore:  DefaultIgnoreMismatch,
+	}
 	return ex
 }
 
@@ -41,11 +46,23 @@ func (ex *Experiment) AddCandidate(f interface{}) {
 // It is run once for each candidate.
 //
 // Format of the custom comparison function:
-// func name_of_func(control []interface{}, candidate []interface{}) bool{}
+// `func name_of_func(control []interface{}, candidate []interface{}) bool{}`
 // and it should return wether the control outputs "control" is equal to the
 // candidate outputs "candidate".
 func (ex *Experiment) SetCompare(f func([]interface{}, []interface{}) bool) {
 	ex.mismatch_compare = f
+}
+
+// Set a custom check for if a mismatch, between the control's outputs and a
+// candidate's, should be ignored.
+// It's run once for each candidate with mismatched outputs.
+// A panic in a candidate run is always considered a mismatch.
+//
+// Format of the custom ignore function:
+// `func name_of_func(control []interface{}, candidate []interface{}) bool{}`
+// and it should return wether the output mismatch should be ignore.
+func (ex *Experiment) SetIgnore(f func([]interface{}, []interface{}) bool) {
+	ex.mismatch_ignore = f
 }
 
 // Run the experiment, calling the control and candidate functions, one at a
@@ -68,10 +85,17 @@ func (ex *Experiment) Run(inputs ...interface{}) []interface{} {
 		ex.RunOrder = append(ex.RunOrder, ob.Name)
 	}
 
-	// Check for output mismatches now that we've run everything
 	for _, ob := range ex.Candidates {
-		if ex.mismatch_compare(ex.Control.Outputs, ob.Outputs) == false {
+		// Panics are always considered a mismatch
+		if ob.Panic != nil {
 			ob.Mismatch = true
+			continue
+		}
+		// Check for output mismatches
+		if ex.mismatch_compare(ex.Control.Outputs, ob.Outputs) != false {
+			if ex.mismatch_ignore(ex.Control.Outputs, ob.Outputs) != true {
+				ob.Mismatch = true
+			}
 		}
 	}
 
