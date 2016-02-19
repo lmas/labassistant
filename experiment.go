@@ -56,11 +56,11 @@ func (ex *Experiment) SetCompare(f func([]interface{}, []interface{}) bool) {
 // Set a custom check for if a mismatch, between the control's outputs and a
 // candidate's, should be ignored.
 // It's run once for each candidate with mismatched outputs.
-// A panic in a candidate run is always considered a mismatch.
+// A panic for a candidate is always considered a mismatch.
 //
 // Format of the custom ignore function:
 // `func name_of_func(control []interface{}, candidate []interface{}) bool{}`
-// and it should return wether the output mismatch should be ignore.
+// and it should return wether the output mismatch should be ignored.
 func (ex *Experiment) SetIgnore(f func([]interface{}, []interface{}) bool) {
 	ex.mismatch_ignore = f
 }
