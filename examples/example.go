@@ -14,7 +14,7 @@ func main() {
 
 	// Add the control, the original function you want to refactor and
 	// measure against with your new code.
-	ex.AddControl(testcontrol)
+	ex.SetControl(testcontrol)
 
 	// Add a bunch of new candidates for replacing the original example function.
 	ex.AddCandidate(testcan1)

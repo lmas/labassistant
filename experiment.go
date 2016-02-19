@@ -16,10 +16,10 @@ func NewExperiment(name string) *Experiment {
 	return ex
 }
 
-// Add a function f as the control for the experiemnt.
+// Set a function f as the control for the experiemnt.
 // There can only be one control for each experiment and it's required to be
 // set before the experiment can be run.
-func (ex *Experiment) AddControl(f interface{}) {
+func (ex *Experiment) SetControl(f interface{}) {
 	if !is_func(f) {
 		panic(fmt.Errorf("Control is not a function"))
 	}
