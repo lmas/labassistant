@@ -26,8 +26,18 @@ func is_func(f interface{}) bool {
 	return true
 }
 
-// By default an experiment will do a simple `control output[x] == candidate output[x]`
-// comparison for each output of each candidate.
-func DefaultMismatchCompare(control, candidate interface{}) bool {
-	return control == candidate
+// The default output mismatch comparison.
+// It loops over all outputs for a candidate and do a simple == comparison
+// against the control's output. It also ensures that the number of outputs of
+// the candidate is the same as the control's.
+func DefaultMismatchCompare(control, candidate []interface{}) bool {
+	if len(candidate) != len(control) {
+		return false
+	}
+	for i := range candidate {
+		if candidate[i] != control[i] {
+			return false
+		}
+	}
+	return true
 }

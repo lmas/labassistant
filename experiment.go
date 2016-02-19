@@ -9,7 +9,7 @@ type Experiment struct {
 	RunOrder   []string
 	Inputs     []interface{}
 
-	mismatch_compare func(interface{}, interface{}) bool
+	mismatch_compare func([]interface{}, []interface{}) bool
 }
 
 // Create a new experiment to run and set a name for it.
@@ -38,13 +38,13 @@ func (ex *Experiment) AddCandidate(f interface{}) {
 }
 
 // Set a custom comparison function.
-// It is run once for each output from all candidates.
+// It is run once for each candidate.
 //
 // Format of the custom comparison function:
-// func name_of_func(control interface{}, candidate interface{}) bool{}
-// and it should return wether the control output "control" is equal to the
-// candidate output "candidate".
-func (ex *Experiment) SetCompare(f func(interface{}, interface{}) bool) {
+// func name_of_func(control []interface{}, candidate []interface{}) bool{}
+// and it should return wether the control outputs "control" is equal to the
+// candidate outputs "candidate".
+func (ex *Experiment) SetCompare(f func([]interface{}, []interface{}) bool) {
 	ex.mismatch_compare = f
 }
 
@@ -70,15 +70,8 @@ func (ex *Experiment) Run(inputs ...interface{}) []interface{} {
 
 	// Check for output mismatches now that we've run everything
 	for _, ob := range ex.Candidates {
-		if len(ob.Outputs) != len(ex.Control.Outputs) {
+		if ex.mismatch_compare(ex.Control.Outputs, ob.Outputs) == false {
 			ob.Mismatch = true
-			continue
-		}
-		for i := range ob.Outputs {
-			if !ex.mismatch_compare(ex.Control.Outputs[i], ob.Outputs[i]) {
-				ob.Mismatch = true
-				continue
-			}
 		}
 	}
 
