@@ -33,7 +33,6 @@ MIT License, see the LICENSE file.
 TODO
 --------------------------------------------------------------------------------
 
-- Custom mismatch comparison.
 - Specify outputs to not store in an observation?
 - Tests.
 - Default publish functions?

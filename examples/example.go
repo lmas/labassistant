@@ -25,16 +25,19 @@ func main() {
 	ex.AddCandidate(testcan6)
 	ex.AddCandidate(testcan7)
 
+	// Set a custom comparison function.
+	ex.SetCompare(simple_compare)
+
 	// Fire up the engines and start running the control and the candidates
 	// in a random order. The library will take some measurements while this
 	// is running.
 	ex.Run(1, 2)
 
 	// Example function for showing the final results of the run.
-	Publish(ex)
+	publish(ex)
 }
 
-func Publish(ex *labassistant.Experiment) {
+func publish(ex *labassistant.Experiment) {
 	fmt.Printf("%v duration: %v\t output: %v\n", ex.Control.Name, ex.Control.Duration, ex.Control.Outputs)
 
 	for _, ob := range ex.Candidates {
@@ -52,6 +55,12 @@ func Publish(ex *labassistant.Experiment) {
 
 	// And finally show the execution order.
 	fmt.Println("Run order: ", strings.Join(ex.RunOrder, ", "))
+}
+
+// Do a simple == comparison of a output from a candidate, against the control's
+// matching output. This func is run once for each output for all candidates.
+func simple_compare(control, candidate interface{}) bool {
+	return control == candidate
 }
 
 // This is the original func we would like to refactor.
