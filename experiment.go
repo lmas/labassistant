@@ -8,11 +8,13 @@ type Experiment struct {
 	Candidates []*Observation
 	RunOrder   []string
 	Inputs     []interface{}
+
+	mismatch_compare func(interface{}, interface{}) bool
 }
 
 // Create a new experiment to run and set a name for it.
 func NewExperiment(name string) *Experiment {
-	ex := &Experiment{Name: name}
+	ex := &Experiment{Name: name, mismatch_compare: DefaultMismatchCompare}
 	return ex
 }
 
@@ -33,6 +35,17 @@ func (ex *Experiment) AddCandidate(f interface{}) {
 	}
 	ob := &Observation{can_panic: true, fun: f}
 	ex.Candidates = append(ex.Candidates, ob)
+}
+
+// Set a custom comparison function.
+// It is run once for each output from all candidates.
+//
+// Format of the custom comparison function:
+// func name_of_func(control interface{}, candidate interface{}) bool{}
+// and it should return wether the control output "control" is equal to the
+// candidate output "candidate".
+func (ex *Experiment) SetCompare(f func(interface{}, interface{}) bool) {
+	ex.mismatch_compare = f
 }
 
 // Run the experiment, calling the control and candidate functions, one at a
@@ -62,7 +75,7 @@ func (ex *Experiment) Run(inputs ...interface{}) []interface{} {
 			continue
 		}
 		for i := range ob.Outputs {
-			if ob.Outputs[i] != ex.Control.Outputs[i] {
+			if !ex.mismatch_compare(ex.Control.Outputs[i], ob.Outputs[i]) {
 				ob.Mismatch = true
 				continue
 			}

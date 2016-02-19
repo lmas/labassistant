@@ -25,3 +25,9 @@ func is_func(f interface{}) bool {
 	}
 	return true
 }
+
+// By default an experiment will do a simple `control output[x] == candidate output[x]`
+// comparison for each output of each candidate.
+func DefaultMismatchCompare(control, candidate interface{}) bool {
+	return control == candidate
+}
