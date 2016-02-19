@@ -1,7 +1,7 @@
 LabAssistant!
 ================================================================================
 
-A Go library for carefully refactoring critical paths.
+A Go library for carefully refactoring critical paths and code.
 It's a lightweight port of Github's [Scientist](https://github.com/github/scientist)
 and with inspiration from the python port [Laboratory](https://github.com/joealcorn/laboratory).
 
