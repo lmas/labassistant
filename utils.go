@@ -19,11 +19,7 @@ func shuffle(slice []*Observation) {
 
 // Check if a variable is a function.
 func is_func(f interface{}) bool {
-	ftype := reflect.ValueOf(f).Type().Kind()
-	if ftype != reflect.Func {
-		return false
-	}
-	return true
+	return reflect.ValueOf(f).Type().Kind() == reflect.Func
 }
 
 // The default output mismatch comparison.
