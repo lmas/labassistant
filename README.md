@@ -42,8 +42,12 @@ MIT License, see the LICENSE file.
 TODO
 --------------------------------------------------------------------------------
 
+Library:
 - Ditch the reflect magic and make a code gen tool instead?
+- Remove the panic'ing code and return errors instead.
+- Default publish functions? One simple CLI output and one web page graph.
+
+Misc:
 - Show feature list.
 - More documentation and usage examples (especially in this file).
-- Default publish functions? One simple CLI output and one web page graph.
 - Travis and Coveralls?
