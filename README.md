@@ -13,9 +13,10 @@ See GitHub's blog post — http://githubengineering.com/scientist/
 Status
 --------------------------------------------------------------------------------
 
-The library is currently in an alpha stage and active development.
+The library is currently in an alpha stage and under development.
 
-Main features have been implemented, along with basic test coverage.
+Main features have been implemented, along with basic test coverage. It haven't
+been tested in production yet, so beware.
 
 Installation
 --------------------------------------------------------------------------------
@@ -41,6 +42,7 @@ MIT License, see the LICENSE file.
 TODO
 --------------------------------------------------------------------------------
 
+- Ditch the reflect magic and make a code gen tool instead?
 - Show feature list.
 - More documentation and usage examples (especially in this file).
 - Default publish functions? One simple CLI output and one web page graph.
