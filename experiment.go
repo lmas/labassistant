@@ -13,24 +13,21 @@ type Experiment struct {
 	mismatch_ignore  func([]interface{}, []interface{}) bool
 }
 
-// Create a new experiment to run and set a name for it.
-func NewExperiment(name string) *Experiment {
+// Create a new experiment to run.
+// s is a name for the experiment, f is a function to be used as a control.
+func NewExperiment(s string, f interface{}) *Experiment {
 	ex := &Experiment{
-		Name:             name,
+		Name:             s,
 		mismatch_compare: DefaultMismatchCompare,
 		mismatch_ignore:  DefaultIgnoreMismatch,
 	}
-	return ex
-}
 
-// Set a function f as the control for the experiemnt.
-// There can only be one control for each experiment and it's required to be
-// set before the experiment can be run.
-func (ex *Experiment) SetControl(f interface{}) {
 	if !is_func(f) {
 		panic(fmt.Errorf("Control is not a function"))
 	}
 	ex.Control = &Observation{Name: "Control", can_panic: false, fun: f}
+
+	return ex
 }
 
 // Add a candidate function f. You can add as many as you like.

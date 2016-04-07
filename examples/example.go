@@ -9,12 +9,9 @@ import (
 )
 
 func main() {
-	// Make a new experiment and call it "test".
-	ex := labassistant.NewExperiment("test")
-
-	// Add the control, the original function you want to refactor and
-	// measure against with your new code.
-	ex.SetControl(testcontrol)
+	// Make a new experiment, name it "test" and add the control (the original
+	// function you want to refactor and measure against with your new code).
+	ex := labassistant.NewExperiment("test", testcontrol)
 
 	// Add a bunch of new candidates for replacing the original example function.
 	ex.AddCandidate(testcan1)
