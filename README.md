@@ -13,7 +13,7 @@ See GitHub's blog post — http://githubengineering.com/scientist/
 Status
 --------------------------------------------------------------------------------
 
-Project has been shut down, if anyone want to take it over please go see issue #2.
+Project has been shut down, if anyone want to take it over please go see [issue #2](https://github.com/lmas/labassistant/issues/2).
 
 ~~The library is currently in an alpha stage and under development.~~
 
