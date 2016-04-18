@@ -13,10 +13,12 @@ See GitHub's blog post — http://githubengineering.com/scientist/
 Status
 --------------------------------------------------------------------------------
 
-The library is currently in an alpha stage and under development.
+Project has been shut down, if anyone want to take it over please go see issue #2.
 
-Main features have been implemented, along with basic test coverage. It haven't
-been tested in production yet, so beware.
+~~The library is currently in an alpha stage and under development.~~
+
+~~Main features have been implemented, along with basic test coverage. It haven't
+been tested in production yet, so beware.~~
 
 Installation
 --------------------------------------------------------------------------------
@@ -50,4 +52,3 @@ Library:
 Misc:
 - Show feature list.
 - More documentation and usage examples (especially in this file).
-- Travis and Coveralls?
